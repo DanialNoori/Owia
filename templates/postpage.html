@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block body %}
+    <body class="group-page" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+{% endblock %}
+{% block page-content %}
+
+    <div class="ui raised container segment">
+        <div class="ui item menu">
+            <a class=" item" href="/groups/{{ group.id }}/">
+                خانه
+            </a>
+            <a class="item" href="/groups/group-meetings/{{ group.id }}/">
+                میتینگ ها
+            </a>
+            <a class=" item" href="/groups/group-discussions/{{ group.id }}/">
+گفتگوها
+            </a>
+            <a class=" item" href="/groups/group-pictures/{{ group.id }}/">
+عکس ها
+            </a>
+            <a class="item" href="/groups/group-members/{{ group.id }}/">
+                اعضا
+            </a>
+
+        </div>
+    </div>
+    <div class="ui raised container segment">
+        <h1 style="font-size: 1.1em ">
+            {{ post.post_title }}
+
+            {% if request.user == post.post_writer %}
+            <a href="/groups/group-discussions/{{ group.id }}/{{ post.id }}/edit/" style="margin-right: 10px">
+                (<i class="very small pencil icon"></i>
+ویرایش
+            )</a>
+            {% endif %}
+        </h1>
+    نویسنده:
+    <a href="/profile/{{ post.post_writer.id }}/">
+{{ post.post_writer.first_name }} {{ post.post_writer.last_name }}
+       </a>
+        <p>
+            {{ post.posts }}
+        </p>
+
+        <h2 style="font-size: 1.1em">
+نظرات:
+        </h2>
+
+        <div class="ui comments">
+            {% for comment in comments %}
+                <div class="comment">
+
+                    <div class="content">
+                        <a class="author" href="/profile/{{ comment.comment_writer.id }}/"><p>
+                            {{ comment.comment_writer.first_name }} {{ comment.comment_writer.last_name }}
+                        </p>
+                        </a>
+
+                        <div class="text">
+                            <p>
+                                {{ comment.comments }}
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+        <form class="ui reply form" method="post" action="/groups/group-discussions/{{ group.id }}/{{ post.id }}/">
+            {% csrf_token %}
+            <div class="field">
+                <label>
+                    نظر شما
+                </label>
+                <textarea name="comment"></textarea>
+            </div>
+            <button class="ui primary submit labeled icon button" type="submit">
+                <i class="icon edit"></i>
+                نظر بدهید
+            </button>
+        </form>
+    </div>
+
+{% endblock %}

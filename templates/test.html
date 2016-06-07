@@ -1,0 +1,96 @@
+# safheye home ghabli
+<div class="what-to-do">
+        <div class="ui two column doubling grid container">
+            <div class="column">
+                <div class="ui segment"
+                     style="height: 226px ; background-image: url('{% static 'images/paper.jpg' %}')">
+                    <a style="font-size: 1.3em ; color: #000000" href="/rules/">
+                    قوانین میتیا
+                </a>
+<p>
+
+</p>
+                </div>
+            </div>
+            <div class="column">
+                <div class="ui segment"
+                     style="height: 226px ; background-image: url('{% static 'images/paper.jpg' %}')">
+                    <p>
+                        میتیا چیست ؟
+                    </p>
+                </div>
+            </div>
+            <div class="column">
+
+                <div class="ui segment"
+                     style="height: 226px ; background-image: url('{% static 'images/paper.jpg' %}')">
+                    <br>
+
+                    <div class="ui center aligned basic segment">
+                        <a href="/groups/" style="font-size:1.5em">
+                            گروه های مختلف را ببینید
+                        </a>
+
+                        <div class="ui horizontal divider">
+                            یا
+                        </div>
+                        <a href="/creategroup/" class="ui teal labeled icon button">
+                            گروه جدید بساز
+                            <i class="add icon"></i>
+
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="column">
+                <div class="ui segment"
+                     style="background-image: url('{% static 'images/paper.jpg' %}') ; height: 226px">
+                    <div class="ui two column middle aligned very relaxed stackable grid">
+                        <div class="column">
+                            <div class="ui form">
+                                <form method="post" action="/signin/">
+                                    {% csrf_token %}
+                                    <div class="field">
+                                        <label>
+                                            ایمیل
+                                        </label>
+
+                                        <div class="ui left icon input">
+                                            <input type="text" name="email">
+                                            <i class="user icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label>
+                                            رمز عبور
+                                        </label>
+
+                                        <div class="ui left icon input">
+                                            <input type="password" name="password">
+                                            <i class="lock icon"></i>
+                                        </div>
+                                    </div>
+                                    <button class="ui medium blue labeled icon button" type="submit">
+                                        <i class="sign in icon"></i>
+                                        ورود
+                                    </button>
+                                </form>
+                            </div>
+
+                        </div>
+                        <div class="ui vertical divider">
+                            یا
+                        </div>
+                        <div class="center aligned column">
+                            <a href="/signup/" class="ui big green labeled icon button">
+                                <i class="add user icon"></i>
+                                ثبت نام
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

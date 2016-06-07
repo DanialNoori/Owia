@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block page-content %}
+
+
+
+
+
+
+    <div class="ui raised very padded text container segment">
+        <h2 class="ui header">
+            ویرایش حساب کاربری
+        </h2>
+
+        <div class="ui grid">
+            <div class="four wide column">
+                <div class="ui vertical fluid tabular menu">
+                    <a class="active item" href="/profile/edit/{{ user.id }}/">
+                        اطلاعات شخصی
+                    </a>
+                    <a class="item" href="/profile/change-password/{{ user.id }}/">
+                        تغییر رمز عبور
+                    </a>
+                    <a class="item" href="/profile/profile-picture/{{ user.id }}/">
+                        عکس پروفایل
+                    </a>
+                    <a class="item" href="/profile/user-groups/{{ user.id }}/">
+                        گروه ها
+                    </a>
+                </div>
+            </div>
+{% block profile-page %}
+            <div class="twelve wide stretched column">
+                <div class="ui segment">
+                    <div class="ui large form">
+
+                        <form class="ui form segment" action="/profile/edit/{{ user.id }}/" method="post">
+                            {% csrf_token %}
+
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>
+                                        نام شما
+                                    </label>
+                                    <input name="first-name" type="text" value="{{ user.first_name }}">
+                                </div>
+                                <div class="field">
+                                    <label>
+                                        نام خانوادگی شما
+                                    </label>
+                                    <input name="last-name" type="text" value="{{ user.last_name }}">
+                                </div>
+
+
+                            </div>
+                            <div class="field">
+                                <label>
+                                    ایمیل شما
+                                </label>
+                                <input name="email" type="email" value="{{ user.email }}">
+                            </div>
+
+                            <button class="ui blue submit button" type="submit">
+                                ویرایش اطلاعات
+                            </button>
+                            <div class="ui error message"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'jquery-2.1.3.min.js' %}"></script>
+    <script src="{% static 'semantic.min.js' %}"></script>
+
+    <script>
+        $('#signupform')
+                .form({
+                    fields: {
+                        name: {
+                            identifier: 'first-name',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'لطفا نام خود را وارد کنید.'
+                                }
+                            ]
+                        },
+                        lastname: {
+                            identifier: 'last-name',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'لطفا نام خانوادگی خود را وارد کنید.'
+                                }
+                            ]
+                        },
+                        email: {
+                            identifier: 'email',
+                            rules: [
+                                {
+                                    type: 'email',
+                                    prompt: 'لطفا ایمیل وارد شده را تصحیح نمایید.'
+                                }
+                            ]
+                        },
+                        password: {
+                            identifier: 'password',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'لطفا یک رمز عبور وارد نمایید.'
+                                }
+                            ]
+                        },
+                        new_password: {
+                            identifier: 'new-password',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'لطفا رمز عبور جدید را وارد نمایید.'
+                                }
+                            ]
+                        },
+                        renew_password: {
+                            identifier: 'renew-password',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'لطفا رمز عبور جدید را دوباره تکرار کنید.'
+                                }
+                            ]
+                        },
+                        terms: {
+                            identifier: 'terms',
+                            rules: [
+                                {
+                                    type: 'checked',
+                                    prompt: 'لطفا قوانین و مقررات را قبول کنید!'
+                                }
+                            ]
+                        }
+
+                    }
+                })
+        ;
+    </script>
+{% endblock %}

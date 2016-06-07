@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+<title>
+میتیا | نظرات و پیشنهادات
+</title>
+{% endblock %}
+{% block page-content %}
+    <div class="ui raised very padded text container segment">
+        {% if success_message %}
+            <div class="ui success message">
+                {{ success_message }}
+            </div>
+        {% endif %}
+        <h2 class="ui header">
+            با ما در ارتباط باشید.
+        </h2>
+
+        <div class="ui large form">
+            <form method="post" action="/no-brakes-on-development-train/">
+                {% csrf_token %}
+                <textarea rows="5" name="user_idea"></textarea>
+                </br></br>
+                <button class="ui blue submit button" type="submit">
+                    ثبت نظر
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

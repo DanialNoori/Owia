@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block body %}
+    <body class="group-page">
+{% endblock %}
+{% block page-content %}
+
+    <div class="ui raised container segment">
+        <div class="ui item menu">
+            <a class=" item" href="/groups/{{ group.id }}/">
+                خانه
+            </a>
+            <a class="active item" href="/groups/group-meetings/{{ group.id }}/">
+                میتینگ ها
+            </a>
+            <a class=" item" href="/groups/group-discussions/{{ group.id }}/">
+گفتگوها
+            </a>
+            <a class=" item" href="/groups/group-pictures/{{ group.id }}/">
+عکس ها
+            </a>
+            <a class="item" href="/groups/group-members/{{ group.id }}/">
+                اعضا
+            </a>
+
+        </div>
+    </div>
+    <div class="ui raised container segment">
+{% if request.user == group.group_owner %}
+        <a href="/groups/new-meeting/{{ group.id }}" style="font-size: 1.2em">
+            <i class="plus icon"></i>
+            ایجاد رویداد جدید
+        </a>
+{% endif %}
+        <div class="ui relaxed divided list">
+            {% for meeting in my_meetings %}
+                <div class="item">
+                    <i class="large announcement middle aligned icon"></i>
+
+                    <div class="content">
+                        <a class="header" href="/groups/group-meetings/{{ group.id }}/{{ meeting.id }}/">
+                            {{ meeting.meeting_name }}
+                        </a>
+
+
+                        <div class="description">
+
+                            {{ meeting.meeting_date }} {{ meeting.meeting_location }}
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}

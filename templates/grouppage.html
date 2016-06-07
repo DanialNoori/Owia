@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block body %}
+    <body class="group-page">
+{% endblock %}
+{% block page-content %}
+
+    <div class="ui raised container segment">
+        <div class="ui four item menu">
+            <a class="active item" href="/groups/{{ group.id }}/">
+                خانه
+            </a>
+            {% if request.user in group.group_listofmembers.all %}
+                <a class="item" href="/groups/group-meetings/{{ group.id }}">
+                    میتینگ ها
+                </a>
+                <a class=" item" href="/groups/group-discussions/{{ group.id }}/">
+گفتگوها
+            </a>
+                <a class="item" href="/groups/group-pictures/{{ group.id }}">
+                    عکس ها
+                </a>
+
+                <a class="item" href="/groups/group-members/{{ group.id }}">
+                    اعضا
+                </a>
+            {% else %}
+                <a class="disabled item" href="/groups/group-meetings/{{ group.id }}">
+                    میتینگ ها
+                </a>
+                <a class="disabled item" href="/groups/group-discussions/{{ group.id }}/">
+گفتگوها
+            </a>
+                <a class="disabled item" href="/groups/group-pictures/{{ group.id }}">
+                    عکس ها
+                </a>
+                <a class="item" href="/groups/group-members/{{ group.id }}">
+                    اعضا
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="ui raised container segment">
+        <div class="ui items">
+            <div class="item">
+                <div class="image">
+                    {% if group.group_image %}
+                        <img src="{{ group.group_image.url }}">
+                    {% else %}
+                        <img src="{% static 'images/whole-logo-test.png' %}">
+                    {% endif %}
+                </div>
+                <div class="content">
+                    <a class="header" style="font-size: 1.5em">
+                        {{ group.group_name }}
+
+                        {% if request.user == group_owner %}
+                        <a href="/groups/edit-group/{{ group.id }}">
+                            <i class="edit icon"></i>
+                            ایجاد تغییرات
+                        </a>
+                    {% endif %}
+                    </a>
+
+                    <div class="meta">
+        <span style="word-wrap: break-word ; font-size: 1.2em ; line-height: 120%">
+{{ group.group_description }}
+        </span>
+                    </div>
+                    <div class="description">
+                        <p></p>
+                    </div>
+                    <div class="extra" style="font-size: 1.1em">
+                        <p>
+                            سازنده گروه:
+                            <a href="/profile/{{ group.group_owner.id }}/">
+                                {{ group.group_owner.first_name }} {{ group.group_owner.last_name }}
+                            </a>
+
+                        </p>
+                    </div>
+                    <div class="extra">
+                        {% if request.user in group.group_listofmembers.all %}
+                            <p style="color: #000000 ; font-size: 1em">
+                            شما عضو این گروه هستید!
+                            </p>
+
+
+                            <form action="/groups/{{ group.id }}/" method="post">
+                                {% csrf_token %}
+                                <button class="ui primitive negative button" type="submit">
+                                    <i class="remove user icon"></i>
+لغو عضویت
+                                </button>
+                            </form>
+                        {% else %}
+
+                            <form action="/groups/{{ group.id }}/" method="post">
+                                {% csrf_token %}
+                                <button class="ui primitive positive button" type="submit">
+                                    <i class="add user icon"></i>
+                                    عضو شوید
+                                </button>
+                            </form>
+                        {% endif %}
+                    <p style="color: #000000 ; font-size: 1.2em">
+تعداد اعضا:
+                            {{ group.group_members }}
+                            </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

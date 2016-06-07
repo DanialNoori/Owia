@@ -1,0 +1,144 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head lang="en">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'fonts.css' %}"/>
+    <link rel="stylesheet" href="{% static 'semantic.rtl.min.css' %}"/>
+    <meta charset="UTF-8">
+{% block title %}
+    <title>
+        {% if group %}
+            میتیا | {{ group.group_name }}
+        {% elif user.is_authenticated %}
+            میتیا |
+            {{ user.first_name }} {{ user.last_name  }}
+        {% else %}
+            میتیا | آدم های مشابه خودتون رو پیدا کنید!
+        {% endif %}
+    </title>
+{% endblock %}
+</head>
+<body class="base">
+<div class="ui container">
+    <div class="ui huge secondary pointing menu" id="navigation-bar">
+        <a class="item" href="/">
+            <i class="home icon"></i>
+            میتیا
+        </a>
+        {% if request.user.is_authenticated %}
+
+            <a class=" item" href="/logout/">
+                <i class="sign out icon"></i>
+                خروج
+            </a>
+            <a class="item" href="/profile/{{ request.user.id }}/">
+                <i class="settings icon"></i>
+                حساب کاربری
+            </a>
+            <a class="item" href="/profile/messages/{{ request.user.id }}/">
+                <i class="mail outline icon"></i>
+                پیام ها
+            </a>
+        {% else %}
+            <a class="item" href="/signup/">
+                <i class="add user icon"></i>
+                ثبت نام
+            </a>
+            <a class="item" href="/signin/">
+                <i class="sign in icon"></i>
+                ورود
+            </a>
+        {% endif %}
+
+        <a class="item" href="/groups/">
+
+            <i class="search icon"></i>
+            گروه بیابید
+        </a>
+        <a class="item" href="/creategroup/">
+            <i class="users icon"></i>
+            گروه بسازید
+        </a>
+    </div>
+
+</div>
+{% block page-content %}
+
+{% endblock %}
+
+<div class="ui inverted vertical footer segment" style="height: 400px ; margin-top: 50px ">
+    <div class="ui container" style="padding-top: 30px">
+        <div class="ui stackable inverted divided equal height stackable grid">
+
+            <div class="three wide column">
+                <h4 class="ui inverted header" style="color: #efc536 ; font-size: large ; margin-top: 40px">
+                    میتیا
+                </h4>
+
+                <div class="ui inverted link list">
+                    <a href="/what-is-meetia/" class="item">
+                        میتیا چیه؟
+                    </a>
+                    <a href="/rules/" class="item">
+                        قوانین میتیا
+                    </a>
+                    <a href="/no-brakes-on-development-train/" class="item">
+تماس با ما
+                    </a>
+
+                    </br>
+                </div>
+            </div>
+            <div class="five wide column">
+                <div class="ui form" style="margin-top: 40px ; margin-right: 15px">
+                    <label style="color: #ffffff ; font-size: 18px ; margin-top: 40px">
+                        چی کمه؟ چی زیاده؟ چجوری بهترش کنیم؟
+                    </label>
+
+                    <form method="post" action="/no-brakes-on-development-train/" style="margin-top: 15px">
+                        {% csrf_token %}
+                        <textarea rows="5" name="user_idea"></textarea>
+                        </br></br>
+                        <button class="ui blue submit button" type="submit">
+                            ثبت نظر
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="five wide column">
+                <div style="margin-top: 40px; margin-right: 60px">
+                <img id='rgvjjxlzapfujzpejzpe' style='cursor:pointer' onclick='window.open("http://logo.samandehi.ir/Verify.aspx?id=31577&p=xlaorfthdshwjyoejyoe", "Popup","toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30")' alt='logo-samandehi' src='http://logo.samandehi.ir/logo.aspx?id=31577&p=qftinbpdujynyndtyndt'/>
+            </div>
+                </div>
+        </div>
+    </div>
+</div>
+<div style="height: 45px ; background-color: #000000">
+
+<p style="color: #757575; text-align: center; padding-top: 10px; padding-bottom: 10px;font-size: 0.9em ;font-family:sans-serif !important;">
+Copyright &copy <a href="meetia.ir" style="font-size: 1em ; color: #efc536; font-family: sans-serif!important;">Meetia</a> | All Rights Reserved
+</p>
+</div>
+{% block scripts %}{% endblock %}
+</body>
+{% block google_analytics_scripts %}
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-71346623-2', 'auto');
+        ga('send', 'pageview');
+        ga('set', 'userId', {{ request.user.id }}); // Set the user ID using signed-in user_id.
+    </script>
+{% endblock %}
+</html>

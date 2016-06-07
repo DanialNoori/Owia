@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}
+<title>
+میتیا | آدم های مشابه خودتون رو پیدا کنید
+</title>
+{% endblock %}
+{% block page-content %}
+    {% load staticfiles %}
+    <div class="introduction-to-meetia">
+        {% if request.user.is_authenticated %}
+
+
+            <h1 style="font-size: 38px ; text-align: center">
+                آدم های مشابه خودتون رو پیدا کنید!
+            </h1>
+
+            <p style=" font-size: 25px ;text-align: center ; margin-bottom: 8px">
+                به جمع افرادی که علایق مشابه خودتون دارن بپیوندید...
+            </p>
+
+            <p style="font-size: 25px ; text-align: center">
+                دنبال گروهی که میخواید بگردید، اگه ساخته نشده، خودتون بسازیدش!
+            </p>
+
+            <div align="center">
+
+                <a class="ui large teal button" style="border-radius: 0px ; border: 2px solid #ffffff"
+                   href="/creategroup/">
+                    <i class="plus icon"></i>
+                    گروه جدید بسازید
+
+                </a>
+                <a class="ui large blue button" style="border-radius: 0px ; border: 2px solid #ffffff"
+                   href="/groups/">
+                    <i class="search icon"></i>
+                    گروه پیدا کنید
+
+                </a>
+            </div>
+
+
+
+        {% else %}
+
+            <h1 style="font-size: 38px ; text-align: center">
+                آدم های مشابه خودتون رو پیدا کنید!
+            </h1>
+
+            <p style=" font-size: 25px ;text-align: center ; margin-bottom: 8px">
+                به جمع افرادی که علایق مشابه خودتون دارن بپیوندید...
+            </p>
+
+            <p style="font-size: 25px ; text-align: center">
+                ساده، سریع، کاملا رایگان
+            </p>
+
+            <div align="center">
+
+                <a class="ui huge positive button" style="border-radius: 0px ; border: 2px solid #ffffff"
+                   href="/signup/">
+                    <i class="add user icon"></i>
+                    ثبت نام کنید
+
+                </a>
+            </div>
+
+
+        {% endif %}
+    </div>
+    <h4 class="ui horizontal divider header" style="font-size: large">
+        <i class="users icon"></i>
+        گروه ها
+    </h4>
+    <div class="all-groups" style="margin-top: 70px ; margin-bottom: 100px">
+        <div class="ui centered special cards">
+            {% for group in groups %}
+
+
+                <div class="card" style="border-radius: 0px">
+                    <div class="image">
+                        <div class="ui dimmer">
+                            <div class="content">
+                            </div>
+                        </div>
+                        {% if group.group_image %}
+                            <img src="{{ group.group_image.url }}" style="height: 200px">
+                        {% else %}
+                            <img src="{% static 'images/whole-logo-test.png' %}" style="height: 200px">
+                        {% endif %}
+                    </div>
+                    <div class="content" style="font-size: 0.85em">
+                        <a class="header" href="/groups/{{ group.id }}">
+                            {{ group.group_name }}
+                        </a>
+
+                        <div class="extra content">
+                            <p style="font-size: 1.2em">
+                                <i class="users icon"></i>
+                                {{ group.group_members }}
+                                عضو
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

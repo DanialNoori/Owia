@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block page-content %}
+
+    <div class="ui container segment">
+        <div class="ui item menu">
+            <a class=" item" href="/groups/{{ group.id }}/">
+                خانه
+            </a>
+            <a class="active item" href="/groups/group-meetings/{{ group.id }}/">
+                میتینگ ها
+            </a>
+            <a class=" item" href="/groups/group-discussions/{{ group.id }}/">
+گفتگوها
+            </a>
+            <a class="item" href="/groups/group-pictures/{{ group.id }}/">
+                عکس ها
+            </a>
+            <a class="item" href="/groups/group-members/{{ group.id }}/">
+                اعضا
+            </a>
+
+        </div>
+    </div>
+    <div class="ui container segment">
+        <form class="ui form segment" action="/groups/group-meetings/{{ group.id }}/{{ meeting.id }}/edit/" method="post" id="new_meeting_form">
+            {% csrf_token %}
+            <div class="field">
+                <label>
+                    نام رویداد
+                </label>
+                <input name="meeting_name" type="text" value="{{ meeting.meeting_name }}">
+
+
+            </div>
+            <div class="field">
+                <label>
+                    محل رویداد
+                </label>
+                <input name="meeting_location" type="text" value="{{ meeting.meeting_location }}">
+
+
+            </div>
+            <div class="two fields">
+                <div class="field">
+
+                    <label>
+                        زمان رویداد
+                    </label>
+                    <input name="meeting_date" type="date" value="{{ meeting.meeting_date }}">
+
+
+                </div>
+
+            </div>
+            <div class="field" style="margin-top:10px">
+                <label>
+                    توضیحات رویداد
+                </label>
+                <textarea rows="3" name="meeting_description">{{ meeting.meeting_description }}</textarea>
+            </div>
+
+            <button class="ui blue submit button" type="submit">
+                ایجاد رویداد
+            </button>
+            <div class="ui error message"></div>
+        </form>
+    </div>
+{% endblock %}
+{% block scripts %}
+ <script src="{% static 'jquery-2.1.3.min.js' %}"></script>
+    <script src="{% static 'semantic.min.js' %}"></script>
+
+    <script>
+        $('#new_meeting_form')
+                .form({
+                    fields: {
+                        name: {
+                            identifier: 'meeting_name',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'لطفا نام میتینگ را وارد کنید.'
+                                }
+                            ]
+                        },
+                        location: {
+                            identifier: 'meeting_location',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'لطفا محل میتینگ را مشخص کنید.'
+                                }
+                            ]
+                        },
+                        date: {
+                            identifier: 'meeting_date',
+                            rules: [
+                                {
+                                    type: 'date',
+                                    prompt: 'لطفا تاریخ میتینگ را به صورت صحیح وارد کنید.'
+                                }
+                            ]
+                        },
+                        desription: {
+                            identifier: 'meeting_description',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'لطفا توضیحات رویداد را وارد کنید.'
+                                }
+                            ]
+                        }
+
+                    }
+                })
+        ;
+    </script>
+{% endblock %}

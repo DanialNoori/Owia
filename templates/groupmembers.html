@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block body %}
+    <body class="group-page">
+{% endblock %}
+{% block page-content %}
+
+    <div class="ui raised container segment">
+        <div class="ui four item menu">
+            <a class=" item" href="/groups/{{ group.id }}/">
+                خانه
+            </a>
+            <a class="item" href="/groups/group-meetings/{{ group.id }}/">
+                میتینگ ها
+            </a>
+            <a class=" item" href="/groups/group-discussions/{{ group.id }}/">
+گفتگوها
+            </a>
+            <a class="item" href="/groups/group-pictures/{{ group.id }}/">
+                عکس ها
+            </a>
+            <a class="active item" href="/groups/group-members/{{ group.id }}/">
+                اعضا
+            </a>
+
+        </div>
+    </div>
+    <div class="ui raised container segment">
+    <div class="ui medium horizontal list">
+
+    </div>
+        <div class="ui medium horizontal list">
+            {% for member in meetia_user_of_group.all %}
+                <div class="item">
+                    <div class="content">
+                        <div class="header">
+                            <a href="/profile/{{ member.id }}/">
+                                {{ member.first_name }} {{ member.last_name }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}

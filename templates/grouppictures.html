@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block body %}
+    <body class="group-page" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+{% endblock %}
+{% block page-content %}
+
+    <div class="ui raised container segment">
+        <div class="ui four item menu">
+            <a class=" item" href="/groups/{{ group.id }}/">
+                خانه
+            </a>
+            <a class="item" href="/groups/group-meetings/{{ group.id }}/">
+                میتینگ ها
+            </a>
+            <a class=" item" href="/groups/group-discussions/{{ group.id }}/">
+                گفتگوها
+            </a>
+            <a class="active item" href="/groups/group-pictures/{{ group.id }}/">
+                عکس ها
+            </a>
+            <a class="item" href="/groups/group-members/{{ group.id }}/">
+                اعضا
+            </a>
+
+        </div>
+    </div>
+    <div class="ui raised container segment">
+        {% if no_image_uploaded %}
+            <div class="ui negative message">
+                {{ no_image_uploaded }}
+            </div>
+        {% endif %}
+        <div class="ui container">
+            <div class="ui medium images" style="padding-right: 30px">
+                {% for album in my_pictures %}
+                    <img class="ui medium bordered image" src="{{ album.pictures.url }}" style="height: 200px">
+                {% endfor %}
+            </div>
+
+            {% if request.user == group.group_owner %}
+                <form method="post" action="/groups/group-pictures/{{ group.id }}/"
+                      style="padding-top: 12px ; padding-right: 30px" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="group_picture_new">
+                    <button class="ui primary button" type="submit">
+                        عکس آپلود کنید
+                    </button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

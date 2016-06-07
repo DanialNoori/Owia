@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block page-content %}
+
+    <div class="ui raised very padded text container segment">
+
+        {% if not_authenticated %}
+            <div class="ui negative message">
+                {{ not_authenticated }}
+            </div>
+        {% endif %}
+        <div class="ui items">
+            <div class="item">
+                <div class="image">
+                    {% if meetia_user.profile_picture %}
+                        <img src="{{ meetia_user.profile_picture.url }}">
+                    {% else %}
+                        <img src="{% static 'images/Meetia-logo.png' %}">
+                    {% endif %}
+                </div>
+
+                <div class="content">
+
+                    <h2 class="ui header" style="margin-bottom: 30px">
+                        {{ user.first_name }} {{ user.last_name }}
+                        {% if request.user == user %}
+                            <a style="font-size: 0.7em" href="/profile/edit/{{ request.user.id }}">
+                                <i class="very small edit icon"></i>تغییر اطلاعات
+                            </a>
+                        {% else %}
+                            <a style="font-size: 0.7em" href="/profile/new-message/{{ user.id }}/">
+                                <i class="very small mail outline icon"></i>
+                                پیغام بدهید
+                            </a>
+                        {% endif %}
+                    </h2>
+
+
+                    <div class="meta">
+
+                        <span>
+
+                        </span>
+                    </div>
+                    <div class="description">
+                        <p></p>
+                    </div>
+
+                    <div class="extra">
+                        <h4 class="ui horizontal divider header">
+                            <i class="users icon"></i>
+                            گروه ها
+                        </h4>
+                        {% for user_groups in user.mberships.all %}
+                            <a style="font-size: 1.3em"
+                               href="/groups/{{ user_groups.id }}/">{{ user_groups.group_name }}</a>/
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

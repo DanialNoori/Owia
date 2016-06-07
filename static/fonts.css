@@ -1,0 +1,58 @@
+@font-face {
+    font-family: 'Yekan';
+    src: url('byekan/Yekan.eot'); /* IE9 Compat Modes */
+    src: url('byekan/Yekan.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('byekan/Yekan.woff') format('woff'), /* Pretty Modern Browsers */ url('byekan/Yekan.ttf') format('truetype'), /* Safari, Android, iOS */ url('byekan/Yekan.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'IranSans';
+    src: url('IranSansZ-WebFont/iransansz-webfont.eot');
+    src: url('IranSansZ-WebFont/iransansz-webfont.woff') format('woff'), url('IranSansZ-WebFont/iransansz-webfont.ttf') format('truetype'), url('IranSansZ-WebFont/iransansz-webfont.svgz') format('svg');
+
+}
+
+@font-face {
+    font-family: 'icons';
+    src: url('themes/default/assets/fonts/icons.eot'); /* IE9 Compat Modes */
+    src: url('themes/default/assets/fonts/icons.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('themes/default/assets/fonts/icons.woff') format('woff'), /* Pretty Modern Browsers */ url('themes/default/assets/fonts/icons.ttf') format('truetype'), /* Safari, Android, iOS */ url('themes/default/assets/fonts/icons.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+*:not(i) {
+    font-family: "Yekan" !important;
+}
+
+html, body {
+    direction: rtl;
+    text-align: right;
+}
+
+.base {
+    background-image: url("images/lezgo.jpg");
+}
+
+
+.introduction-to-meetia {
+    margin-bottom: 150px;
+}
+
+
+.all-groups {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#navigation-bar {
+    margin-bottom: 50px;
+}
+
+.signuppage {
+
+    background-image: url("images/lezgo.jpg");
+    background-position-x: center;
+
+}
+

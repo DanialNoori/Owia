@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block body %}
+    <body class="signuppage">
+{% endblock %}
+{% block page-content %}
+
+
+    <div class="all-groups">
+        <div class="ui centered special cards">
+
+            {% for group in groups %}
+
+
+                <div class="card" style="border-radius: 0px">
+                    <div class="image">
+                        <div class="ui dimmer">
+                            <div class="content">
+                            </div>
+                        </div>
+                        {% if group.group_image %}
+                            <img src="{{ group.group_image.url }}" style="height: 200px">
+                        {% else %}
+                            <img src="{% static 'images/whole-logo-test.png' %}" style="height: 200px">
+                        {% endif %}
+                    </div>
+                    <div class="content" style="font-size: 0.85em">
+                        <a class="header" href="/groups/{{ group.id }}">
+
+                            {{ group.group_name }}
+                        </a>
+
+                        <div class="extra content">
+                            <p style="font-size: 1.2em">
+                                <i class="users icon"></i>
+{{ group.group_members }}
+                                عضو
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock %}

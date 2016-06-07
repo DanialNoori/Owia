@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block body %}
+    <body class="group-page">
+{% endblock %}
+{% block page-content %}
+
+    <div class="ui raised container segment">
+        <div class="ui four item menu">
+            <a class="active item" href="/groups/{{ group.id }}/">
+                خانه
+            </a>
+            <a class="item" href="/groups/group-meetings/{{ group.id }}">
+                میتینگ ها
+            </a>
+            <a class="item" href="/groups/group-pictures/{{ group.id }}">
+                عکس ها
+            </a>
+            <a class="item" href="/groups/group-members/{{ group.id }}">
+                اعضا
+            </a>
+
+        </div>
+    </div>
+    <div class="ui raised container segment">
+        <form class="ui form segment" enctype="multipart/form-data" action="/groups/edit-group/{{ group.id }}/" method="post">
+            {% csrf_token %}
+
+
+            <div class="field">
+                <label>
+                    نام گروه
+                </label>
+                <input name="group_name" type="text" value="{{ group.group_name }}">
+
+
+            </div>
+            <div class="field">
+                <label>
+                    توضیحات گروه
+                </label>
+                <textarea rows="3" name="group_description">{{ group.group_description }}</textarea>
+            </div>
+            <div class="field">
+                <label style="font-style: inherit">
+                    عکس گروه
+                </label>
+                <input type="file" name="group_image">
+            </div>
+
+            <button class="ui blue submit button" type="submit">
+تایید
+            </button>
+            <div class="ui error message"></div>
+        </form>
+    </div>
+
+{% endblock %}

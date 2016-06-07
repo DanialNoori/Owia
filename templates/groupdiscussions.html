@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block body %}
+    <body class="group-page">
+{% endblock %}
+{% block page-content %}
+
+    <div class="ui raised container segment">
+        <div class="ui item menu">
+            <a class=" item" href="/groups/{{ group.id }}/">
+                خانه
+            </a>
+            <a class="item" href="/groups/group-meetings/{{ group.id }}/">
+                میتینگ ها
+            </a>
+            <a class="active item" href="/groups/group-discussions/{{ group.id }}/">
+گفتگوها
+            </a>
+            <a class=" item" href="/groups/group-pictures/{{ group.id }}/">
+عکس ها
+            </a>
+            <a class="item" href="/groups/group-members/{{ group.id }}/">
+                اعضا
+            </a>
+
+        </div>
+    </div>
+    <div class="ui container segment">
+        <h1 style="font-size: 1.3em">
+            پست ها
+        </h1>
+<a href="/groups/group-discussions/{{ group.id }}/new-post/">
+    <i class="plus icon"></i>
+    ایجاد پست جدید
+</a>
+        <div class="ui relaxed divided list">
+            {% for posts in posts %}
+                <div class="item">
+                    <i class="large github middle aligned icon"></i>
+
+                    <div class="content">
+                        <a class="header" href="/groups/group-discussions/{{ group.id }}/{{ posts.id }}/">
+                            {{ posts.post_title }}
+                        </a>
+
+                        <div class="description"><p>
+                            {{ posts.post_writer.first_name }} {{ posts.post_writer.last_name }}
+                        </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+{% endblock %}

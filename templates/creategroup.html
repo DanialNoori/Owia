@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block body %}
+    <body class="signuppage">
+{% endblock %}
+{% block page-content %}
+    <div class="ui raised very padded text container segment">
+
+        <h2 class="ui header">
+            ساخت گروه
+        </h2>
+
+        <div class="ui large form">
+
+
+            <form class="ui form segment" id="creategroupform" action="/creategroup/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="field">
+                    <label>
+                        نام گروه
+                    </label>
+                    <input name="group_name" type="text">
+
+
+                </div>
+                <div class="field">
+                    <label>
+                        توضیحات گروه
+                    </label>
+                    <textarea rows="3" name="group_description"></textarea>
+                </div>
+                <div class="field">
+                    <label style="font-style: inherit">
+                        عکس گروه
+                    </label>
+                    <input type="file" name="group_image">
+                </div>
+
+                <button class="ui blue submit button" type="submit">
+                    ثبت گروه
+                </button>
+                <div class="ui error message"></div>
+            </form>
+        </div>
+
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'jquery-2.1.3.min.js' %}"></script>
+    <script src="{% static 'semantic.min.js' %}"></script>
+
+    <script>
+        $('#creategroupform')
+                .form({
+                    fields: {
+                        name: {
+                            identifier: 'group_name',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'برای گروه اسم انتخاب کنید!'
+                                }
+                            ]
+                        },
+                        description: {
+                            identifier: 'group_description',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'توضیحات گروه را وارد کنید!'
+                                }
+                            ]
+                        }
+                    }
+                })
+        ;
+    </script>
+{% endblock %}

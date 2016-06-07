@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block page-content %}
+
+    <div class="ui raised container segment">
+        <div class="ui item menu">
+            <a class=" item" href="/groups/{{ group.id }}/">
+                خانه
+            </a>
+            <a class="active item" href="/groups/group-meetings/{{ group.id }}/">
+                میتینگ ها
+            </a>
+            <a class=" item" href="/groups/group-discussions/{{ group.id }}/">
+گفتگوها
+            </a>
+            <a class="item" href="/groups/group-pictures/{{ group.id }}/">
+                عکس ها
+            </a>
+            <a class="item" href="/groups/group-members/{{ group.id }}/">
+                اعضا
+            </a>
+
+        </div>
+    </div>
+    <div class="ui raised container segment" style="word-wrap: break-word ; font-size: 1.2em ;">
+        <h1 class="ui header">
+            {{ meeting.meeting_name }}
+   {% if request.user == group.group_owner %}
+            <a href="/groups/group-meetings/{{ group.id }}/{{ meeting.id }}/edit/" style="margin-right: 10px ; font-size: 0.5em !important;">
+                <i class="pencil icon">
+                </i>
+                ویرایش
+            </a>
+            {% endif %}
+            <div class="sub header">
+                {{ meeting.meeting_date }} {{ meeting.meeting_location }}
+            </div>
+        </h1>
+        <p>
+            {{ meeting.meeting_description }}
+        </p>
+
+{% if request.user in meeting.who_is_coming.all %}
+<p style="margin-top: 8px">
+    شما هم میرید!
+</p>
+    <form method="post" action="/groups/group-meetings/{{ group.id }}/{{ meeting.id }}/">
+            {% csrf_token %}
+            <button class="negative ui button">
+نه نمیام
+            </button>
+        </form>
+        {% else %}
+        <form method="post" action="/groups/group-meetings/{{ group.id }}/{{ meeting.id }}/">
+            {% csrf_token %}
+            <button class="positive ui button">
+                منم میام
+            </button>
+        </form>
+    {% endif %}
+    <p style="margin-top: 15px">
+    کسایی که میان:
+{% for user in meeting.who_is_coming.all %} <a href="/profile/{{ user.id }}/">
+    {{ user.first_name }} {{ user.last_name }}
+    </a>
+    /
+    {% endfor %}
+    </p>
+    </div>
+{% endblock %}

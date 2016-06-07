@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+<title>
+میتیا | پیام ها
+</title>
+{% endblock %}
+{% block page-content %}
+
+    <div class="ui raised very padded text container segment">
+        <form class="ui form segment" method="post" action="/profile/new-message/{{ receiver.id }}/">
+            {% csrf_token %}
+            <h1>
+فرستادن پیام
+            </h1>
+
+            <div class="field">
+                <label>
+گیرنده
+                </label>
+                <input class="field" name="receiver" value="{{ receiver.first_name }} {{ receiver.last_name }}" disabled>
+            </div>
+            <div class="field">
+                <label>
+متن نامه
+                </label>
+                <textarea rows="4" name="content"></textarea>
+            </div>
+            <button class="ui primary submit labeled icon button" type="submit" style="margin-bottom: 25px">
+                <i class="icon edit"></i>
+فرستادن پیام
+            </button>
+        </form>
+
+
+    </div>
+
+{% endblock %}

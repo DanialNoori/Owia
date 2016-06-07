@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+<title>
+میتیا | ورود
+</title>
+{% endblock %}
+{% block page-content %}
+<div class="ui raised very padded text container segment">
+    <h2 class="ui header">
+ورود
+    </h2>
+
+    <div class="ui large form">
+
+
+        <form class="ui form segment" id="signinform" method="post">
+            {% csrf_token %}
+{% if error_message %}
+<div class="ui negative message">
+{{ error_message }}
+    </div>
+            {% endif %}
+            <div class="field">
+                <label>
+                    ایمیل شما
+                </label>
+                <input name="email" type="email">
+            </div>
+            <div class="field">
+                <label>
+                    رمز عبور
+                </label>
+                <input type="password" name="password">
+            </div>
+
+            <button class="ui blue submit button" type="submit">
+ورود
+            </button>
+        <a style="font-size: 1.2em" href="/passrecovery/">
+رمزتون رو فراموش کردین؟
+        </a>
+            <div class="ui error message"></div>
+        </form>
+    </div>
+</div>
+{% endblock %}

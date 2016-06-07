@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+<title>
+میتیا | پیام ها
+</title>
+{% endblock %}
+{% block page-content %}
+
+    <div class="ui raised very padded text container segment">
+
+        <div class="ui tabular menu">
+            <a class="active item" href="/profile/messages/{{ request.user.id }}/">
+                پیام ها
+            </a>
+            <a class="item" href="/profile/messages/{{ request.user.id }}/sent/">
+                پیام های فرستاده شده
+            </a>
+        </div>
+
+        <div class="ui relaxed divided list">
+{% for message in my_messages %}
+            <div class="item">
+                <i class="large github middle aligned icon"></i>
+
+                <div class="content">
+                    <a class="header" href="/profile/{{ message.sender.id }}/">
+                        {{ message.sender.first_name }} {{ message.sender.last_name }}
+                    </a>
+
+                    <div class="description">
+                        {{ message.content }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+{% endblock %}

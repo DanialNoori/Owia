@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block body %}
+    <body class="group-page">
+{% endblock %}
+{% block page-content %}
+
+    <div class="ui raised container segment">
+        <div class="ui item menu">
+            <a class=" item" href="/groups/{{ group.id }}/">
+                خانه
+            </a>
+            <a class="item" href="/groups/group-meetings/{{ group.id }}/">
+                میتینگ ها
+            </a>
+            <a class=" item" href="/groups/group-discussions/{{ group.id }}/">
+گفتگوها
+            </a>
+            <a class=" item" href="/groups/group-pictures/{{ group.id }}/">
+عکس ها
+            </a>
+            <a class="item" href="/groups/group-members/{{ group.id }}/">
+                اعضا
+            </a>
+
+        </div>
+    </div>
+    <div class="ui container segment">
+        <form class="ui form segment" method="post" action="/groups/group-discussions/{{ group.id }}/{{ post.id }}/edit/" id="edit_post_form">
+            {% csrf_token %}
+            <h1>
+ویرایش پست
+            </h1>
+
+            <div class="field">
+                <label>
+                    عنوان پست
+                </label>
+                <input class="field" name="post_title" value="{{ post.post_title }}">
+            </div>
+            <div class="field">
+                <label>
+                    متن پست
+                </label>
+                <textarea rows="4" name="post">{{ post.posts }}</textarea>
+            </div>
+            <button class="ui primary submit labeled icon button" type="submit">
+                <i class="icon edit"></i>
+ویرایش پست
+            </button>
+        </form>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+ <script src="{% static 'jquery-2.1.3.min.js' %}"></script>
+    <script src="{% static 'semantic.min.js' %}"></script>
+
+    <script>
+        $('#edit_post_form')
+                .form({
+                    fields: {
+                        post_title: {
+                            identifier: 'post_title',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'لطفا عنوان پست را مشخص کنید.'
+                                }
+                            ]
+                        },
+                        post: {
+                            identifier: 'post',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'لطفا متن پست را وارد کنید.'
+                                }
+                            ]
+                        }
+
+                    }
+                })
+        ;
+    </script>
+{% endblock %}
